@@ -1,28 +1,45 @@
-from django.shortcuts import render, get_object_or_404
-
-from catalog.models import Product
-
-
-# Create your views here.
-def home(request):
-    model = Product.objects.all()
-    context = {"product": model}
-    return render(request, 'catalog/product_list.html', context)
-
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {"product": product}
-    return render(request, 'catalog/product_detail.html', context)
+from django.views.generic import ListView, DetailView, TemplateView
+from django.views import View
+from django.shortcuts import render
+from .models import Product
 
 
+# Заменяем home(request)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/product_list.html'
+    context_object_name = 'product'
 
-def contacts(request):
-    if request.method == 'POST':
+
+# Заменяем product_detail(request, pk)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
+
+
+# Заменяем contacts(request)
+class ContactsView(View):
+    template_name = 'catalog/contacts.html'
+
+    def get(self, request):
+        # Обработка GET запроса - просто показываем страницу
+        return render(request, self.template_name)
+
+    def post(self, request):
+        # Обработка POST запроса - сохраняем данные формы
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+
+        # Сохраняем в файл
         with open('catalog/text.txt', 'a', encoding='utf-8') as file:
-            name = request.POST.get('name')
-            phone = request.POST.get('phone')
-            message = request.POST.get('message')
-            file.write(f"Имя пользователя : {name}\nТелефон: {phone}\nСообщение: {message}\n")
-            print(f"Имя пользователя : {name}\nТелефон: {phone}\nСообщение: {message}\n")
+            file.write(f"Имя пользователя: {name}\nТелефон: {phone}\nСообщение: {message}\n\n")
 
-    return render(request, 'catalog/contacts.html')
+        # Выводим в консоль
+        print(f"Имя пользователя: {name}")
+        print(f"Телефон: {phone}")
+        print(f"Сообщение: {message}")
+        print("---")
+
+        return render(request, self.template_name)
