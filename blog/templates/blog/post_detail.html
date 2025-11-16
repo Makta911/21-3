@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p><strong>Дата создания:</strong> {{ post.created_at|date:"d.m.Y H:i" }}</p>
+    <p><strong>Просмотров:</strong> {{ post.views_count }}</p>
+    <p><strong>Опубликовано:</strong> {{ post.is_published|yesno:"Да,Нет" }}</p>
+
+    {% if post.preview %}
+        <img src="{{ post.preview.url }}" alt="{{ post.title }}">
+    {% endif %}
+
+    <div>{{ post.content|linebreaks }}</div>
+
+    <a href="{% url 'blog:post_list' %}">← Назад к списку статей</a><br>
+    <a href="{% url 'blog:post_update' post.pk %}">✏️ Редактировать</a><br>
+    <a href="{% url 'blog:post_delete' post.pk %}">🗑️ Удалить</a>
+</body>
+</html>

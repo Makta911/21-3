@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Блог</title>
+</head>
+<body>
+    <h1>Блоговые записи</h1>
+    <a href="{% url 'blog:post_create' %}">Создать новую запись</a>
+
+    {% for post in posts %}
+    <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+        <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
+        <p><strong>Дата создания:</strong> {{ post.created_at|date:"d.m.Y H:i" }}</p>
+        <p><strong>Просмотров:</strong> {{ post.views_count }}</p>
+
+        {% if post.preview %}
+            <img src="{{ post.preview.url }}" alt="{{ post.title }}" width="200">
+        {% endif %}
+
+        <p>{{ post.content|truncatewords:30 }}</p>
+
+        <a href="{% url 'blog:post_detail' post.pk %}">Читать далее</a>
+        <a href="{% url 'blog:post_update' post.pk %}">Редактировать</a>
+        <a href="{% url 'blog:post_delete' post.pk %}">Удалить</a>
+    </div>
+    {% empty %}
+    <p>Пока нет опубликованных записей в блоге.</p>
+    {% endfor %}
+</body>
+</html>
