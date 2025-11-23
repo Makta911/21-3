@@ -4,26 +4,47 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
+      <!-- Кнопка добавления нового продукта -->
+      <div class="mb-4">
+        <a href="{% url 'catalog:product_create' %}" class="btn btn-primary">Добавить новый продукт</a>
+      </div>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {% for product in product %}
+        {% for product in product %}
         <div class="col">
           <div class="card shadow-sm">
-            <img src="{{ product.image | media_filter}}" alt="photo">
+            {% if product.image %}
+              <img src="{{ product.image | media_filter }}" alt="{{ product.name }}" class="card-img-top" style="height: 225px; object-fit: cover;">
+            {% else %}
+              <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 225px;">
+                <span class="text-white">Нет изображения</span>
+              </div>
+            {% endif %}
 
             <div class="card-body">
-              <p class="card-text">{{ product.name }}</p>
-              <p class="card-text">{{ product.description }}</p>
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+              <p class="card-text"><strong>Цена: {{ product.price }} руб.</strong></p>
+
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-sm btn-outline-primary">View</a>
+                  <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                  <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">{{ product.created_at|date:"d.m.Y" }}</small>
               </div>
             </div>
           </div>
         </div>
-           {% endfor %}
+        {% empty %}
+        <div class="col-12">
+          <div class="text-center py-4">
+            <h4>Пока нет продуктов в каталоге</h4>
+            <a href="{% url 'catalog:product_create' %}" class="btn btn-primary mt-2">Добавить первый продукт</a>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
