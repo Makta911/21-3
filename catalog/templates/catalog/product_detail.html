@@ -1,30 +1,45 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
-  <div class="album py-5 bg-light">
-    <div class="container">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="{{ product.image | media_filter }}" alt="photo">
-
-            <div class="card-body">
-              <p class="card-text">{{ product.name }}</p>
-              <p class="card-text">{{ product.description }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            {% if product.image %}
+                <img src="{{ product.image | media_filter }}" alt="{{ product.name }}" class="img-fluid rounded">
+            {% else %}
+                <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="height: 400px;">
+                    <span>Нет изображения</span>
                 </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
+            {% endif %}
         </div>
+        <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <p class="lead">{{ product.description }}</p>
+            <p class="h4 text-primary"><strong>Цена: {{ product.price }} руб.</strong></p>
 
-      </div>
+            {% if product.category %}
+                <p><strong>Категория:</strong> {{ product.category.name }}</p>
+            {% endif %}
+
+            <p><strong>Дата создания:</strong> {{ product.created_at|date:"d.m.Y" }}</p>
+            <p><strong>Статус:</strong>
+                {% if product.is_published %}
+                    <span class="badge bg-success">Опубликован</span>
+                {% else %}
+                    <span class="badge bg-warning">Черновик</span>
+                {% endif %}
+            </p>
+
+            <div class="mt-4">
+                <a href="{% url 'catalog:home' %}" class="btn btn-secondary">← Назад к списку</a>
+
+                <!-- Кнопки редактирования и удаления - только для авторизованных -->
+                {% if user.is_authenticated %}
+                <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning">✏️ Редактировать</a>
+                <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">🗑️ Удалить</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}

@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Удаление продукта</title>
 </head>
 <body>
-$END$
+    <h1>Удаление продукта</h1>
+    <p>Вы уверены, что хотите удалить "{{ object }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+    </form>
+
+    <a href="{% url 'catalog:home' %}">Отмена</a>
 </body>
 </html>
