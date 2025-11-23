@@ -5,14 +5,66 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1204a9b8-ca76-4be8-8edd-8ec58d42269f" name="Changes" comment="25 skypro">
-      <change afterPath="$PROJECT_DIR$/catalog/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/templates/catalog/product_confirm_delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catalog/templates/catalog/product_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/services.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/users/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/users/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/users/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/19.2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/19.2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/migrations/0002_product_manufactured_at_alter_product_created_at.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/templates/catalog/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/templates/catalog/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/templates/catalog/includes/inc_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/templates/catalog/includes/inc_menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/templates/catalog/product_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/templates/catalog/product_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/templates/catalog/product_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/templates/catalog/product_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catalog/templates/catalog/product_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/templates/catalog/product_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catalog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/admin/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/admin/migrations/0002_logentry_remove_auto_add.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/admin/migrations/0003_logentry_add_action_flag_choices.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0002_alter_permission_name_max_length.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0003_alter_user_email_max_length.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0004_alter_user_username_opts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0005_alter_user_last_login_null.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0006_require_contenttypes_0002.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0007_alter_validators_add_error_messages.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0008_alter_user_username_max_length.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0009_alter_user_last_name_max_length.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0010_alter_group_name_max_length.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0011_update_proxy_permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/auth/migrations/0012_alter_user_first_name_max_length.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/contenttypes/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/contenttypes/migrations/0002_remove_content_type_name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/flatpages/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/redirects/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/redirects/migrations/0002_alter_redirect_new_path_help_text.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/sessions/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/sites/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/contrib/sites/migrations/0002_alter_domain_unique.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/autodetector.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/exceptions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/executor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/graph.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/loader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/migration.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/operations/base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/operations/fields.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/operations/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/operations/special.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/optimizer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/questioner.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/recorder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/serializer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myenv/Lib/site-packages/django/db/migrations/writer.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +77,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -59,6 +111,17 @@
     &quot;author&quot;: &quot;Makta911&quot;
   }
 }</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOMflpss6zt_pk&quot;,
+        &quot;number&quot;: 1
+      },
+      &quot;lastSeen&quot;: 1763913689224
+    }
+  ]
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Makta911/19-2.git&quot;,
@@ -79,31 +142,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.manage.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "#1 on feature/blog-implementation",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/раб стол/Skypro/19.2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/product-crud-blog&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/раб стол/Skypro/19.2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\matvey\Desktop\Skypro\19.2\catalog\temlplates" />
@@ -245,7 +308,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763302321136</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="25 skypro">
+      <option name="closed" value="true" />
+      <created>1763914030590</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1763914030590</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

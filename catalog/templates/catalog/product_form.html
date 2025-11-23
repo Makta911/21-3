@@ -142,4 +142,12 @@
         </div>
     </div>
 </div>
+{% if not user.is_authenticated %}
+<div class="alert alert-warning mt-4">
+    <h5>🔒 Требуется авторизация</h5>
+    <p class="mb-2">Для создания и редактирования продуктов необходимо войти в систему.</p>
+    <a href="{% url 'users:login' %}?next={{ request.path }}" class="btn btn-warning btn-sm">Войти</a>
+    <a href="{% url 'users:register' %}" class="btn btn-outline-warning btn-sm">Зарегистрироваться</a>
+</div>
+{% endif %}
 {% endblock %}

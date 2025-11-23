@@ -4,10 +4,12 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
-      <!-- Кнопка добавления нового продукта -->
+      <!-- Кнопка добавления нового продукта - только для авторизованных -->
+      {% if user.is_authenticated %}
       <div class="mb-4">
         <a href="{% url 'catalog:product_create' %}" class="btn btn-primary">Добавить новый продукт</a>
       </div>
+      {% endif %}
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for product in product %}
@@ -28,9 +30,13 @@
 
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-sm btn-outline-primary">View</a>
-                  <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                  <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                  <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-sm btn-outline-primary">Просмотр</a>
+
+                  <!-- Кнопки редактирования и удаления - только для авторизованных -->
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                  <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+                  {% endif %}
                 </div>
                 <small class="text-muted">{{ product.created_at|date:"d.m.Y" }}</small>
               </div>
@@ -41,7 +47,11 @@
         <div class="col-12">
           <div class="text-center py-4">
             <h4>Пока нет продуктов в каталоге</h4>
+            {% if user.is_authenticated %}
             <a href="{% url 'catalog:product_create' %}" class="btn btn-primary mt-2">Добавить первый продукт</a>
+            {% else %}
+            <p class="text-muted mt-2">Войдите в систему, чтобы добавить продукты</p>
+            {% endif %}
           </div>
         </div>
         {% endfor %}

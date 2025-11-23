@@ -1,27 +1,57 @@
-<div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">Магазин</h4>
-          <p class="text-muted">Десяточка</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Навигация</h4>
-          <ul class="list-unstyled">
-            <li><a href="{% url 'catalog:home'%}" class="text-white">Главная</a></li>
-            <li><a href="#" class="text-white">Вход</a></li>
-            <li><a href="#" class="text-white">Регистрация</a></li>
-          </ul>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'catalog:home' %}">Магазин "Десяточка"</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'catalog:home' %}">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:post_list' %}">Блог</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'catalog:contact' %}">Контакты</a>
+        </li>
+
+        <!-- Пункт меню для добавления товара - только для авторизованных -->
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'catalog:product_create' %}">➕ Добавить товар</a>
+        </li>
+        {% endif %}
+      </ul>
+
+      <!-- Блок аутентификации -->
+      <ul class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              👋 {{ user.email }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'users:profile' %}">📱 Профиль</a></li>
+              <li><a class="dropdown-item" href="{% url 'catalog:product_create' %}">➕ Добавить товар</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item">🚪 Выйти</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">🔑 Войти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">📝 Регистрация</a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
   </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand d-flex align-items-center">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
+</nav>
