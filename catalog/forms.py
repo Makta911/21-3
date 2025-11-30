@@ -12,7 +12,8 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'category', 'image', 'manufactured_at', 'is_published']
+        fields = ['name', 'description', 'price', 'category', 'image', 'manufactured_at', 'publish_status']
+        # Убрали is_published, добавили publish_status
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -39,13 +40,16 @@ class ProductForm(forms.ModelForm):
                 'class': 'form-control',
                 'type': 'date'
             }),
-            'is_published': forms.CheckboxInput(attrs={
-                'class': 'form-check-input'
+            'publish_status': forms.Select(attrs={
+                'class': 'form-select'
             })
         }
 
     def __init__(self, *args, **kwargs):
+        # Получаем пользователя из kwargs
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+
         self.add_form_control_class()
         self.update_placeholders()
 
@@ -53,14 +57,40 @@ class ProductForm(forms.ModelForm):
         if not self.instance.pk and 'manufactured_at' in self.fields:
             self.fields['manufactured_at'].initial = timezone.now().date()
 
+        # Логика для поля статуса публикации
+        self.handle_publish_status_field()
+
+    def handle_publish_status_field(self):
+        """Управление полем статуса публикации в зависимости от прав пользователя"""
+        if 'publish_status' in self.fields:
+            # Если пользователь не модератор, ограничиваем выбор статусов
+            if self.user and not self.has_moderator_permissions():
+                # Обычные пользователи могут выбирать только черновик
+                self.fields['publish_status'].choices = [
+                    ('draft', 'Черновик'),
+                ]
+                self.fields['publish_status'].initial = 'draft'
+                # Добавляем подсказку
+                self.fields['publish_status'].help_text = 'Только модераторы могут публиковать продукты'
+            else:
+                # Модераторы видят все статусы
+                self.fields['publish_status'].help_text = 'Выберите статус публикации продукта'
+
+    def has_moderator_permissions(self):
+        """Проверяет, есть ли у пользователя права модератора"""
+        if not self.user:
+            return False
+        return (self.user.has_perm('catalog.can_unpublish_product') or
+                self.user.has_perm('catalog.can_delete_any_product') or
+                self.user.groups.filter(name='Модератор продуктов').exists())
+
     def add_form_control_class(self):
         """Добавляет класс form-control ко всем полям"""
         for field_name, field in self.fields.items():
-            if field_name not in ['is_published']:  # Для чекбокса не добавляем form-control
-                if 'class' not in field.widget.attrs:
-                    field.widget.attrs['class'] = 'form-control'
-                elif 'form-control' not in field.widget.attrs['class']:
-                    field.widget.attrs['class'] += ' form-control'
+            if 'class' not in field.widget.attrs:
+                field.widget.attrs['class'] = 'form-control'
+            elif 'form-control' not in field.widget.attrs['class']:
+                field.widget.attrs['class'] += ' form-control'
 
     def update_placeholders(self):
         """Обновляет плейсхолдеры для полей"""
@@ -69,6 +99,7 @@ class ProductForm(forms.ModelForm):
             'description': 'Опишите особенности продукта...',
             'price': '0.00',
             'category': 'Выберите категорию',
+            'manufactured_at': 'Выберите дату производства',
         }
 
         for field_name, placeholder in placeholders.items():
@@ -114,3 +145,16 @@ class ProductForm(forms.ModelForm):
             )
 
         return price
+
+    def clean_publish_status(self):
+        """Валидация статуса публикации"""
+        publish_status = self.cleaned_data['publish_status']
+
+        # Если пользователь не модератор, не позволяем устанавливать статус "published"
+        if (publish_status == 'published' and self.user and
+                not self.has_moderator_permissions()):
+            raise forms.ValidationError(
+                'Только модераторы могут публиковать продукты'
+            )
+
+        return publish_status

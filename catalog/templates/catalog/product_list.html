@@ -27,13 +27,18 @@
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text">{{ product.description|truncatewords:15 }}</p>
               <p class="card-text"><strong>Цена: {{ product.price }} руб.</strong></p>
+              <p class="card-text">
+                <small class="text-muted">
+                  Владелец: {% if product.owner %}{{ product.owner.email }}{% else %}Не указан{% endif %}
+                </small>
+              </p>
 
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-sm btn-outline-primary">Просмотр</a>
 
-                  <!-- Кнопки редактирования и удаления - только для авторизованных -->
-                  {% if user.is_authenticated %}
+                  <!-- Кнопки редактирования и удаления - только для владельца или модератора -->
+                  {% if user.is_authenticated and product.owner == user or perms.catalog.can_delete_any_product %}
                   <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
                   <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
                   {% endif %}
