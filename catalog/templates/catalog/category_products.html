@@ -1,0 +1,151 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Сайдбар с категориями -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Категории</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'catalog:all_categories' %}"
+                           class="list-group-item list-group-item-action {% if not current_category %}active{% endif %}">
+                            Все категории
+                            <span class="badge bg-secondary float-end">{{ products.paginator.count }}</span>
+                        </a>
+                        {% for category in categories %}
+                        <a href="{% url 'catalog:category_products' category_slug=category.title %}"
+                           class="list-group-item list-group-item-action {% if current_category and current_category.title == category.title %}active{% endif %}">
+                            {{ category.title }}
+                            <span class="badge bg-primary float-end">{{ category.product_count }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>{{ page_title }}</h1>
+                {% if user.is_authenticated %}
+                <a href="{% url 'catalog:product_create' %}" class="btn btn-primary">Добавить продукт</a>
+                {% endif %}
+            </div>
+
+            <!-- Информация о текущей категории -->
+            {% if current_category %}
+            <div class="alert alert-info">
+                <h4>{{ current_category.title }}</h4>
+                {% if current_category.description %}
+                <p class="mb-0">{{ current_category.description }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Сетка продуктов -->
+            {% if products %}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                {% for product in products %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        {% if product.image %}
+                        <img src="{{ product.image|media_filter }}"
+                             class="card-img-top"
+                             alt="{{ product.name }}"
+                             style="height: 200px; object-fit: cover;">
+                        {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                             style="height: 200px;">
+                            <span class="text-muted">Нет изображения</span>
+                        </div>
+                        {% endif %}
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text flex-grow-1">{{ product.description|truncatewords:20 }}</p>
+                            <div class="mt-auto">
+                                <p class="card-text">
+                                    <strong class="h5 text-primary">{{ product.price }} руб.</strong>
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        Категория: {{ product.category.title|default:"Не указана" }}
+                                    </small>
+                                </p>
+                                <div class="btn-group w-100">
+                                    <a href="{% url 'catalog:product_detail' product.pk %}"
+                                       class="btn btn-sm btn-outline-primary">Подробнее</a>
+                                    {% if user.is_authenticated and product.owner == user or perms.catalog.can_delete_any_product %}
+                                    <a href="{% url 'catalog:product_update' product.pk %}"
+                                       class="btn btn-sm btn-outline-secondary">✏️</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                Добавлен: {{ product.created_at|date:"d.m.Y" }} |
+                                Владелец: {{ product.owner.email|default:"Не указан" }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if is_paginated %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="text-center py-5">
+                <h3>😔 Продукты не найдены</h3>
+                <p class="text-muted">
+                    {% if current_category %}
+                    В категории "{{ current_category.title }}" пока нет опубликованных продуктов.
+                    {% else %}
+                    Пока нет опубликованных продуктов.
+                    {% endif %}
+                </p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'catalog:product_create' %}" class="btn btn-primary">Добавить первый продукт</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
