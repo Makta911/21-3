@@ -46,7 +46,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -136,3 +138,41 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Настройки кеширования с Redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # БД №1 для кеша
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            # Дополнительные опции
+            'SOCKET_CONNECT_TIMEOUT': 5,  # секунд
+            'SOCKET_TIMEOUT': 5,          # секунд
+            'RETRY_ON_TIMEOUT': True,
+        }
+    },
+    'session': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/2',  # БД №2 для сессий
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+CACHE_TIMES = {
+    'product_detail': 60 * 15,  # 15 минут для деталей продукта
+    'product_list': 60 * 10,    # 10 минут для списка продуктов
+    'blog_posts': 60 * 30,      # 30 минут для блога
+}
+
+# Использовать Redis для хранения сессий
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_CACHE_ALIAS = 'session'
+
+# Время жизни кеша (по умолчанию)
+CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 минут
+
+# Ключевой префикс для кеша
+CACHE_MIDDLEWARE_KEY_PREFIX = 'skypro'
